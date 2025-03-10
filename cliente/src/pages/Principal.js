@@ -35,7 +35,6 @@ const Principal = () => {
 
   const TMDB_BASE_URL = "https://api.themoviedb.org/3/";
   const TMDB_API_KEY = process.env.REACT_APP_TMDB_API_KEY;
-  const TMDB_ACCESS_TOKEN = process.env.REACT_APP_TMDB_ACCESS_TOKEN;
   
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -125,25 +124,26 @@ const Principal = () => {
 
   useEffect(() => {
     const fetchMovie = async () => {
-      if (movieId) {
-        try {
-          const response = await axios.get(
-            `https://api.themoviedb.org/3/movie/${movieId}?language=pt-BR`,
-            {
-              headers: {
-                Authorization: `Bearer ${TMDB_ACCESS_TOKEN}`
-              }
-            }
-          );
+      if (!movieId) return;
+  
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${movieId}?language=pt-BR&api_key=${TMDB_API_KEY}`
+        );
+  
+        setTimeout(() => {
           setSelectedMovie(response.data);
-        } catch (error) {
-          console.error("Erro ao buscar filme:", error);
-          navigate('/principal');
-        }
+        }, 100);
+      } catch (error) {
+        console.error("Erro ao buscar filme:", error);
+        setSelectedMovie(null);
       }
     };
+  
     fetchMovie();
-  }, [TMDB_ACCESS_TOKEN, movieId, navigate]);
+  }, [movieId, TMDB_API_KEY]);
+      
+  
 
   const handleCardClick = (movie) => {
     const idToUse = movie.tmdbId || movie.id;
@@ -158,11 +158,11 @@ const Principal = () => {
   }, [navigate]);
 
   useEffect(() => {
-    // Se não tem movieId na URL mas tem filme selecionado
     if (!movieId && selectedMovie) {
       setSelectedMovie(null);
     }
   }, [movieId, selectedMovie]);
+  
 
   useEffect(() => {
     if (movieId) {
@@ -173,53 +173,39 @@ const Principal = () => {
   }, [movieId]);
 
   useEffect(() => {
-    const fetchMovie = async () => {
-      if (movieId) {
-        try {
-          // Primeiro verifica se o filme está na lista pessoal
-          const localMovie = myList.find(movie => movie.tmdbId === Number(movieId));
-          
-          if (localMovie) {
-            setSelectedMovie(localMovie);
-          } else {
-            // Se não encontrou local, busca na API
-            const response = await axios.get(
-              `https://api.themoviedb.org/3/movie/${movieId}?language=pt-BR`,
-              { headers: { Authorization: `Bearer ${TMDB_ACCESS_TOKEN}` } }
-            );
-            setSelectedMovie(response.data);
-          }
-        } catch (error) {
-          console.error("Erro ao buscar filme:", error);
-          navigate('/principal');
+    const fetchMovieData = async () => {
+      if (!movieId) {
+        setSelectedMovie(null);
+        return;
+      }
+  
+      try {
+        // Primeiro verifica na lista local
+        const localMovie = myList.find(movie => movie.tmdbId === Number(movieId));
+        
+        if (localMovie) {
+          setSelectedMovie(localMovie);
+          return;
         }
+  
+        // Se não encontrou local, busca na API
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${movieId}?language=pt-BR&api_key=${TMDB_API_KEY}`,
+          { headers: { Authorization: `Bearer ${TMDB_API_KEY}` } }
+        );
+        
+        setSelectedMovie(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar filme:", error);
+        // Não navega automaticamente, apenas limpa a seleção
+        setSelectedMovie(null);
       }
     };
-    fetchMovie();
-  }, [movieId, navigate, myList, TMDB_ACCESS_TOKEN]);
-
-  useEffect(() => {
-    // Verifica se o ID da URL é diferente do filme selecionado
-    if (movieId && movieId !== selectedMovie?.id?.toString()) {
-      const fetchMovie = async () => {
-        try {
-          const response = await axios.get(
-            `https://api.themoviedb.org/3/movie/${movieId}?language=pt-BR`,
-            {
-              headers: {
-                Authorization: `Bearer ${TMDB_ACCESS_TOKEN}`
-              }
-            }
-          );
-          setSelectedMovie(response.data);
-        } catch (error) {
-          console.error("Erro ao buscar filme:", error);
-          navigate('/principal');
-        }
-      };
-      fetchMovie();
-    }
-  }, [movieId, navigate, selectedMovie?.id, TMDB_ACCESS_TOKEN]);
+  
+    // Adiciona delay para garantir que a navegação completa
+    const timer = setTimeout(fetchMovieData, 100);
+    return () => clearTimeout(timer);
+  }, [movieId, myList, TMDB_API_KEY]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -255,20 +241,13 @@ const Principal = () => {
     setError("");
   
     try {
-      const API_KEY = TMDB_API_KEY;
-      if (!API_KEY) {
-        console.error("Erro: API Key não definida!");
-        setError("Erro ao carregar filmes. API Key não configurada.");
-        return;
-      }
-  
       const url = query
-        ? `${TMDB_BASE_URL}search/movie?query=${encodeURIComponent(query)}&page=${page}&language=pt-BR&api_key=${API_KEY}`
-        : `${TMDB_BASE_URL}movie/popular?page=${page}&language=pt-BR&api_key=${API_KEY}`;
+        ? `${TMDB_BASE_URL}search/movie?query=${encodeURIComponent(query)}&page=${page}&language=pt-BR&api_key=${TMDB_API_KEY}`
+        : `${TMDB_BASE_URL}movie/popular?page=${page}&language=pt-BR&api_key=${TMDB_API_KEY}`;
   
       const response = await axios.get(url);
       setTotalPages(response.data.total_pages);
-      setMovies(response.data.results);
+      setMovies(response.data.results.filter(movie => movie.poster_path));
     } catch (error) {
       console.error("Erro ao buscar filmes:", error);
       setError("Erro ao carregar filmes.");
