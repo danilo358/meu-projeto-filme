@@ -79,30 +79,30 @@ Editar
 npm start
 📌 O frontend rodará na porta 3000.
 
-📂 Estrutura do Projeto
-bash
-Copiar
-Editar
+## 📂 Estrutura do Projeto
+
+```bash
 meu-projeto-filmes/
-│-- client/            # Pasta do frontend (React)
-│   ├── src/           # Código fonte do React
-│   ├── public/        # Arquivos estáticos
-│   ├── .env           # Configurações do frontend
-│   ├── package.json   # Dependências do frontend
-│   └── ...
+├── client/             # Pasta do frontend (React)
+│   ├── src/            # Código fonte do React
+│   ├── public/         # Arquivos estáticos
+│   ├── .env            # Configurações do frontend
+│   ├── package.json    # Dependências do frontend
+│   └── ...             
 │
-│-- server/            # Pasta do backend (Node.js)
-│   ├── models/        # Modelos do banco de dados
-│   ├── middlewares/   # Middlewares de autenticação e validação
-│   ├── scripts/       # Scripts auxiliares
-│   ├── index.js       # Ponto de entrada do servidor
-│   ├── .env           # Configurações do backend
-│   ├── package.json   # Dependências do backend
-│   └── ...
+├── server/             # Pasta do backend (Node.js)
+│   ├── models/         # Modelos do banco de dados
+│   ├── middlewares/    # Middlewares de autenticação e validação
+│   ├── scripts/        # Scripts auxiliares
+│   ├── index.js        # Ponto de entrada do servidor
+│   ├── .env            # Configurações do backend
+│   ├── package.json    # Dependências do backend
+│   └── ...             
 │
-│-- .gitignore         # Ignorar arquivos desnecessários
-│-- README.md          # Documentação
-│-- package.json       # Dependências globais
+├── .gitignore          # Arquivos e pastas a serem ignorados pelo Git
+├── README.md           # Documentação do projeto
+└── package.json        # Dependências globais
+
 🎥 Funcionalidades
 ✅ Explorar Filmes: Buscar e visualizar detalhes dos filmes pela API do TMDB.
 ✅ Favoritar: Adicionar filmes a uma lista pessoal.
