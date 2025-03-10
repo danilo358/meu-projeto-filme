@@ -1,67 +1,104 @@
+📌 Meu Projeto de Filmes
+Este projeto é um aplicativo web que permite aos usuários explorar, favoritar e marcar filmes como assistidos, utilizando a API do The Movie Database (TMDB). O projeto é dividido em duas partes:
 
-## Available Scripts
+Frontend (client/): Desenvolvido com React.js.
+Backend (server/): Construído com Node.js e Express.
 
-In the project directory, you can run:
+🚀 Tecnologias Utilizadas
 
-### `npm start`
+Frontend:
+React.js
+React Router DOM
+Styled Components
+Axios
+Lodash.debounce
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Backend:
+Node.js
+Express.js
+SQLite (ou outro banco de dados)
+JWT (JSON Web Token) para autenticação
+Bcrypt para hash de senhas
+🛠️ Como Rodar o Projeto
+1️⃣ Clonar o repositório
+sh
+Copiar
+Editar
+git clone https://github.com/danilo358/meu-projeto-filmes.git
+cd meu-projeto-filmes
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2️⃣ Configurar o Backend (server/)
+Acesse a pasta server/ e instale as dependências:
 
-### `npm test`
+sh
+Copiar
+Editar
+cd server
+npm install
+Crie um arquivo .env na pasta server e adicione:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+SECRET_KEY=minhaChaveSecreta
+PORT=8080
+MONGO_URI=mongodb+srv://{usuario}:{senha}@trackdb.w7f2c.mongodb.net/?retryWrites=true&w=majority&appName=TrackDB
+Inicie o servidor:
 
-### `npm run build`
+sh
+Copiar
+Editar
+npm run dev
+📌 O backend rodará na porta 8080.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3️⃣ Configurar o Frontend (client/)
+Acesse a pasta client/ e instale as dependências:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+sh
+Copiar
+Editar
+cd ../client
+npm install
+Crie um arquivo .env na pasta client e adicione:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+REACT_APP_TMDB_API_KEY=SUA_API_KEY_TMDB
+REACT_APP_BACKEND_URL=http://localhost:8080
+Inicie o frontend:
 
-### `npm run eject`
+sh
+Copiar
+Editar
+npm start
+📌 O frontend rodará na porta 3000.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+📂 Estrutura do Projeto
+bash
+Copiar
+Editar
+meu-projeto-filmes/
+│-- client/            # Pasta do frontend (React)
+│   ├── src/           # Código fonte do React
+│   ├── public/        # Arquivos estáticos
+│   ├── .env           # Configurações do frontend
+│   ├── package.json   # Dependências do frontend
+│   └── ...           
+│
+│-- server/            # Pasta do backend (Node.js)
+│   ├── models/        # Modelos do banco de dados
+│   ├── middlewares/   # Middlewares de autenticação e validação
+│   ├── scripts/       # Scripts auxiliares
+│   ├── index.js       # Ponto de entrada do servidor
+│   ├── .env           # Configurações do backend
+│   ├── package.json   # Dependências do backend
+│   └── ...
+│
+│-- .gitignore         # Ignorar arquivos desnecessários
+│-- README.md          # Documentação
+│-- package.json       # Dependências globais
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+🎥 Funcionalidades
+✅ Explorar Filmes: Buscar e visualizar detalhes dos filmes pela API do TMDB.
+✅ Favoritar: Adicionar filmes a uma lista pessoal.
+✅ Marcar como Assistido: Registrar filmes que já foram vistos.
+✅ Autenticação: Login e registro de usuários.
+✅ Paginação: Navegar entre páginas de filmes populares.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+👨‍💻 Autor
+Feito por @danilo358 🚀
