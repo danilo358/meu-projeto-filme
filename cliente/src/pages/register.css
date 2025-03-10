@@ -1,0 +1,179 @@
+/* Register.css */
+
+.register-container {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 400px;
+  margin: 2rem auto;
+  transition: transform 0.3s ease;
+}
+
+.register-container:hover {
+  transform: translateY(-5px);
+}
+
+.register-container h2 {
+  color: #2d3748;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.register-form input {
+  padding: 12px 15px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.register-form input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.register-form button {
+  background: #667eea;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.register-form button:hover {
+  background: #764ba2;
+  transform: translateY(-2px);
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #4a5568;
+}
+
+.register-link a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #e53e3e;
+  text-align: center;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  background: #fff5f5;
+  border-radius: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .register-container {
+    padding: 1.5rem;
+    margin: 1rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .register-form input {
+    padding: 10px 12px;
+  }
+  
+  .register-form button {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-button {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white !important;
+  padding: 0.8rem 2rem !important;
+  border-radius: 25px !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.user-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+}
+
+.menu-dropdown {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.menu-dropdown button {
+  padding: 1rem 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.menu-dropdown button:hover {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white !important;
+}
+
+.add-button {
+  background: linear-gradient(45deg, #667eea, #764ba2) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 12px 20px !important;
+  border-radius: 25px !important;
+  transition: transform 0.2s ease;
+}
+
+.add-button:hover {
+  transform: translateY(-2px) rotate(-1deg);
+  box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+}
+
+.in-list-message {
+  background: #48bb78 !important;
+  padding: 12px 20px !important;
+  border-radius: 25px !important;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.watched-button {
+  background: linear-gradient(45deg, #48bb78, #38a169);
+  color: white !important;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.watched-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(72, 187, 120, 0.4);
+}
+
+.watched-button.watched {
+  background: linear-gradient(45deg, #e53e3e, #c53030);
+  pointer-events: none;
+  opacity: 0.9;
+}

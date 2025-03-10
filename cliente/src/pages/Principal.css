@@ -1,0 +1,570 @@
+/* Configurações globais e header */
+body {
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: 'Arial', sans-serif;
+}
+
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #1a1a1a;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  height: 32px; 
+  max-height: 40px; 
+  width: auto;
+  transition: opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    height: 28px;
+    max-height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    height: 24px;
+    max-height: 28px;
+  }
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Navegação e busca */
+nav {
+  display: flex;
+  gap: 0.5rem;
+  
+  button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+
+    &.active {
+      background: #4f46e5;
+      color: white;
+    }
+
+    &:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+
+  input {
+    flex: 1;
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid #4f46e5;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 0.9rem;
+  }
+
+  button {
+    background: none;
+    border: none;
+    color: blue;
+    font-size: 1.2rem;
+    padding: 8px;
+    transition: color 0.2s;
+    border-radius: 100%;
+
+    &:hover {
+      color: #4338ca;
+    }
+  }
+}
+
+/* Layout principal e grid de filmes */
+.principal-container {
+  padding-top: 80px;
+  min-height: calc(100vh - 80px);
+  position: relative;
+  z-index: 1;
+}
+
+.movies-grid {
+  display: grid;
+  gap: 24px;
+  padding: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  min-height: calc(100vh - 160px);
+
+  @media (min-width: 1400px) { grid-template-columns: repeat(5, 1fr); }
+  @media (max-width: 1200px) { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 992px) { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 768px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 480px) { grid-template-columns: 1fr; }
+}
+
+/* Card de filme */
+.movie-card {
+  position: relative; /* Garante que os elementos filhos fiquem dentro do card */
+  background: #2d2d2d;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  height: 460px; /* Ajuste o tamanho do card se necessário */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.movie-card:hover {
+  transform: translateY(-8px); /* Faz o card "levantar" ao passar o mouse */
+}
+
+.movie-poster-container {
+  width: 100%;
+  height: 300px; /* Altura fixa para padronizar os banners */
+  overflow: hidden;
+}
+
+.movie-poster-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Corta a imagem para preencher o contêiner mantendo a proporção */
+}
+
+.watched-button {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px; /* Defina um tamanho fixo para evitar mudanças no hover */
+  margin: auto;
+  margin-top: auto;
+  padding: 8px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.3s ease, opacity 0.3s ease;
+  z-index: 3;
+}
+
+.watched-button:hover {
+  background: #4338ca;
+  transform: translateX(-50%);
+
+}
+
+.movie-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  flex-grow: 1;
+  z-index: 2;
+
+  h3 {
+    font-size: 1rem; /* Ajuste o tamanho conforme necessário */
+    margin: 0;
+    white-space: normal; /* Permite a quebra de linha */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word; /* Quebra palavras longas */
+    text-align: center; /* Centraliza o título */
+    max-height: 3rem; /* Limita a altura do título para evitar que ocupe muito espaço */
+    line-height: 1.3rem; /* Define uma altura de linha adequada para o título */
+  }
+}
+
+.movie-details {
+  display: flex;
+  justify-content: space-between; /* Distribui os elementos entre os cantos */
+  align-items: center;
+  font-size: 0.9rem;
+  color: #a0aec0;
+  padding: 0 10px; /* Adiciona um espaçamento interno */
+  width: 100%;
+}
+
+/* Botões de interação */
+.add-button, .in-list-message {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px; /* Defina um tamanho fixo para evitar mudanças no hover */
+  margin: auto;
+  margin-top: auto;
+  padding: 8px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  z-index: 3;
+}
+
+.add-button:hover {
+  background: #4338ca;
+  transform: translateX(-50%); /* Garante que ele não se mova */
+}
+
+.in-list-message {
+  background: #4f46e5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: default;
+}
+
+.remove-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+}
+
+/*Descriçao do filme */
+
+/* Estilos para a sobreposição de descrição */
+.description-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente para destaque */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Estilos para o conteúdo da descrição */
+.description-content {
+  background-color: #1c1c1c; /* Fundo escuro para contraste */
+  color: #ffffff; /* Texto branco para legibilidade */
+  width: 90%;
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  max-height: 760px;
+  scrollbar-width: none;
+
+}
+
+
+
+/* Estilos para o botão de fechar */
+.close-button {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+  transition: color 0.3s;
+  z-index: 20000;
+}
+
+.close-button:hover {
+  color: #ff0000; /* Destaque ao passar o mouse */
+}
+
+/* Estilos para o contêiner do pôster */
+.description-poster {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000; /* Fundo para destacar o pôster */
+}
+
+.description-poster img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+}
+
+/* Estilos para as informações do filme */
+.description-info {
+  flex: 2;
+  padding: 20px;
+}
+
+.description-info h1 {
+  margin-top: 0;
+  font-size: 28px;
+  color: #ffcc00; /* Cor do título */
+}
+
+.description-info p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 20px 0;
+}
+
+.metadata {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.metadata span {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.metadata span::before {
+  content: '•';
+  margin-right: 5px;
+  color: #ffcc00; /* Cor dos ícones */
+}
+
+/* Estilos para o botão de adicionar à lista */
+.add-button {
+  background-color: #ffcc00;
+  color: #1c1c1c;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.description-content p {
+  background-color: white;
+  border-radius: 10px;
+  color: #010101;
+  opacity: 90%;
+  max-height: 740px;
+}
+
+.add-button:hover {
+  background-color: #e6b800;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .description-content {
+    flex-direction: column;
+  }
+
+  .description-poster img {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+
+/* Paginação e footer */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1rem;
+
+  button {
+    padding: 0.5rem 1rem;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    &:disabled {
+      background: #a0aec0;
+      cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+      background: #4338ca;
+    }
+  }
+}
+
+.tmdb-attribution {
+  text-align: center;
+  padding: 2rem;
+  color: #a0aec0;
+  font-size: 0.9rem;
+
+  a {
+    color: #4f46e5;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.remove-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  transition: transform 0.2s;
+}
+
+.remove-button:hover {
+  transform: scale(1.1);
+}
+
+.movie-card-container {
+  max-width: 250px;
+  max-height: 520px;
+  flex: 1 1 200px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+/* Overlay de confirmação */
+.confirmation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente para destaque */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000; /* Acima dos outros elementos */
+}
+
+/* Modal de confirmação */
+.confirmation-modal {
+  background: #2d2d2d;
+  border: 2px solid #4f46e5; 
+  border-radius: 10px;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+}
+
+/* Título da confirmação */
+.confirmation-modal h3 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+/* Botões de confirmação */
+.confirmation-buttons {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+/* Estilo comum para botões */
+.confirmation-buttons button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+/* Botão de confirmar */
+.confirm-button {
+  background: #4f46e5;
+  color: #ffffff;
+}
+
+.confirm-button:hover {
+  background: #4338ca;
+}
+
+/* Botão de cancelar */
+.cancel-button {
+  background: #a0aec0;
+  color: #1a1a1a;
+}
+
+.cancel-button:hover {
+  background: #718096;
+}
+
+.pagination span {
+  color:white;
+  background-color: #2d2d2d;
+  padding: 2px;
+  border-radius: 10px;
+}
+
+footer{
+  background-color: #1a1a1a;
+  margin-bottom: 0px;
+}
